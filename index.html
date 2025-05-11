@@ -1,262 +1,462 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Portfolio treningowe Łukasz Grzywanowski">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <title>SEO - początki i podstawy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Łukasz Grzywanowski – CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6c6c6c;
+      --accent: #007acc;
+      --tag-bg: #f0f0f0;
+    }
 
-    <style>
-      footer a {
-        color: white;
-        margin-right: 10px;
-        font-size: 20px;
-        text-decoration: none;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      footer a:hover {
-        color: #ccc;
-      }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 24px;
+      line-height: 1.7;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
 
-        span {
-          color: gray;
-          font-size: 14px;
-          font-style: italic;
-        }
+    .header-text {
+      flex: 1 1 60%;
+    }
 
-        ul li {
-          margin-bottom: 15px;
-        }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
 
-        form {
-            max-width: 500px;
-            margin-top: 20px;
-        }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.2em;
+    }
 
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
 
-        button[type="submit"] {
-            background-color: #222;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
+    .contact {
+      margin-top: 10px;
+      display: flex;
+      gap: 12px;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
 
-        button[type="submit"]:hover {
-            background-color: #444;
-        }
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        header, footer {
-            background-color: #222;
-            color: white;
-            padding: 10px 20px;
-        }
-        nav a {
-            margin-right: 15px;
-            color: rgb(255, 255, 255);
-            text-decoration: none;
-        }
-        main {
-            margin-top: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        .box {
-            background-color: #eaeaea;
-            padding: 10px;
-            margin-top: 15px;
-            border-left: 4px solid #333;
-        }
+    .contact a i {
+      font-size: 1.3rem;
+      color: #3d3d3d;
+      transition: filter 0.2s ease;
+    }
 
-        @media (max-width: 600px) {
-        .box {
-          padding: 10px;
-          margin-top: 15px;
-        }
-      }
+    .contact a:hover i {
+      filter: brightness(0.4);
+    }
 
-      
-    </style>
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: #333;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      margin-right: 6px;
+      border-radius: 4px;
+    }
+
+    .experience-entry {
+      margin-bottom: 32px;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+
+    .experience-header a {
+      font-weight: 600;
+      text-decoration: none;
+      color: #000;
+      transition: color 0.2s ease;
+    }
+
+    .experience-header a:hover {
+      color: #666;
+    }
+
+    .experience-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 4px 0;
+      flex-wrap: wrap;
+    }
+
+    .experience-position {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .experience-description {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 16px;
+      background-color: #fff;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-tag {
+      background: var(--tag-bg);
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #333;
+    }
+
+    .location a {
+      text-decoration: none;
+      color: #1a1a1a;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .location a:hover {
+      color: #666;
+    }
+
+    .tag-link {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: #1a1a1a;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      margin: 4px 6px 4px 0;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .tag-link:hover {
+      background-color: #ddd;
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 60px;
+    }
+
+  </style>
 </head>
 <body>
+  <header>
+    <div class="header-text">
+      <h1>Łukasz Grzywanowski</h1>
+      <p class="subtitle">SEO / Marketing / Front-End Enthusiast</p>
 
-<!-- Nagłówek strony -->
-<header>
-    <h1>SEO - początki czyli nauka od podstaw</h1>
-    <nav>
-    <a href="#start">Start</a>
-    <a href="#o-mnie">O mnie</a>
-    <a href="#doswiadczenie">Doświadczenie</a>
-    <a href="#umiejetnosci">Umiejętności</a>
-    <a href="#projekty">Projekty</a>
-    <a href="#kontakt">Kontakt</a>
-    <a href="#blog.html">Blog</a>
-    <a href="#analizy seo">Analizy SEO</a>
-</nav>
+      <div class="location">
+  <a href="https://www.google.com/maps/place/Warszawa" target="_blank" aria-label="Lokalizacja - Warszawa">
+    <i class="fas fa-globe"></i> Warszawa, Polska
+  </a>
+</div>
 
-</header>
 
-<!-- Główna treść strony -->
-<main>
+      <div class="contact">
+        <a href="mailto:lgrzywanowski@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+48576147767" aria-label="Telefon"><i class="fas fa-phone-alt"></i></a>
+        <a href="https://github.com/luuski" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://instagram.com/7nnski" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <img src="avatar_circle.png" alt="Avatar Łukasz Grzywanowski" class="avatar" />
+  </header>
 
-    <section id="start" class="box">
-      <h2>Witaj!</h2>
-      <p>Nazywam się Łukasz i uczę się front-endu oraz SEO. To moje małe portfolio!</p>
+  <section>
+    <h2>O mnie</h2>
+    <p>Student marketingu i sprzedaży z pasją do SEO, e-commerce i tworzenia stron. Uczę się front-endu i narzędzi SEO, realizując własne projekty, w tym portfolio w HTML i CSS. Szukam miejsca, gdzie będę mógł rozwijać się pod okiem praktyków.</p>
+  </section>
+
+  <section>
+  <h2>Doświadczenie</h2>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://cichy-zasada.pl" target="_blank">Grupa Cichy-Zasada</a>
+      <div><em>11.2024 – obecnie</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Specjalista ds. obsługi klienta</div>
+      <div class="tags">
+        <span class="tag">CRM</span>
+        <span class="tag">Excel</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Codzienna obsługa klienta B2C i B2B</li>
+      <li>Uzupełnianie i zarządzanie danymi w CRM</li>
+      <li>Praca z dokumentacją i wsparcie sprzedaży</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.dpd.com/pl/pl/" target="_blank">DPD Polska</a>
+      <div><em>01.2024 – 10.2024</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Pracownik ds. obsługi klienta</div>
+      <div class="tags">
+        <span class="tag">Excel</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Obsługa telefoniczna i mailowa klientów indywidualnych</li>
+      <li>Rozwiązywanie zgłoszeń i reklamacji</li>
+      <li>Aktualizacja danych w systemie operacyjnym</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <strong>PKSW</strong>
+      <div><em>05.2023 – 08.2023</em></div>
+    </div>
+    <div class="experience-position">Kierowca kat. CE</div>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://inpost.pl/" target="_blank">Integer Group Services</a>
+      <div><em>06.2021 – 08.2022</em></div>
+    </div>
+    <div class="experience-position">Kierowca kat. B</div>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.dynamic-pigna.pl/" target="_blank">Dynamic</a>
+      <div><em>02.2021 – 05.2021</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Specjalista ds. obsługi sklepu internetowego i logistyki</div>
+      <div class="tags">
+        <span class="tag">Shoper</span>
+        <span class="tag">Allegro</span>
+        <span class="tag">Excel</span>
+        <span class="tag">HTML</span>
+        <span class="tag">ERP</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Dodawanie produktów i opisów do sklepu Shoper</li>
+      <li>Obsługa zamówień, paragonów i faktur</li>
+      <li>Pomoc techniczna i kontakt z klientami</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <strong>Castorama Polska</strong>
+      <div><em>10.2019 – 07.2020</em></div>
+    </div>
+    <div class="experience-position">Pracownik sektora logistyki</div>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <strong>Starbucks</strong>
+      <div><em>08.2018 – 05.2019</em></div>
+    </div>
+    <div class="experience-position">Barista</div>
+  </div>
+
+</section>
+
+
+  <section>
+    <h2>Wykształcenie</h2>
+  
+    <div class="experience-entry">
+      <div class="experience-header">
+        <strong>Uniwersytet WSB Merito</strong>
+        <div><em>2023 – 2026</em></div>
+      </div>
+      <div class="experience-position">Marketing i sprzedaż – E-marketing</div>
+    </div>
+  
+    <div class="experience-entry">
+      <div class="experience-header">
+        <strong>Zespół Szkół Poligraficznych im. Marszałka Józefa Piłsudskiego</strong>
+        <div><em>2014 – 2018</em></div>
+      </div>
+      <div class="experience-position">Technik organizacji reklamy</div>
+    </div>
+  </section>  
+
+  <section>
+    <h2>Umiejętności</h2>
+    <div class="tags">
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">SEO</span>
+      <span class="tag">Google Analytics</span>
+      <span class="tag">GSC</span>
+      <span class="tag">Ahrefs</span>
+      <span class="tag">Shoper</span>
+      <span class="tag">Magento</span>
+      <span class="tag">Excel</span>
+    </div>
+  </section>
+
+  <section>
+  <h2>Certyfikaty i kursy</h2>
+  <div class="tags">
+    <a class="tag-link" href="https://ude.my/certificate/ABC123" target="_blank">SEO Fundamentals – Udemy</a>
+    <a class="tag-link" href="https://www.linkedin.com/learning/..." target="_blank">LinkedIn – Google Analytics</a>
+    <a class="tag-link" href="https://coursera.org/..." target="_blank">Meta Marketing Certificate</a>
+  </div>
+</section>
+
+  <section>
+  <h2>Projekty</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <h3>Portfolio na GitHub</h3>
+      <p>Strona stworzona od podstaw w HTML i CSS z naciskiem na SEO i responsywność.</p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+        <span class="project-tag">SEO</span>
+        <span class="project-tag">Responsive</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>Landing Page: Sklep internetowy</h3>
+      <p>Prosty szablon sklepu z formularzem kontaktowym i sliderem produktów.</p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">UI Design</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>Narzędzie SEO – meta checker</h3>
+      <p>Mini-aplikacja analizująca długość meta tytułów i opisów na stronach.</p>
+      <div class="project-tags">
+        <span class="project-tag">SEO</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">UX Tool</span>
+      </div>
+    </div>
+
+    </div>
     </section>
-  
-    <section id="o-mnie" class="box">
-      <h2>O mnie</h2>
-      <img src="moje-zdjecie.jpg" alt="Zdjęcie Łukasz Grzywanowski - twórca strony">
-      <p>Student marketingu i sprzedaży z zajawką na SEO, e-commerce i analizę danych. Lubię grzebać, optymalizować i rozwijać się!</p>
-      <p> Posiadam doświadczenie w e-commerce, obsłudze klienta, logistyce i transporcie. Poszukuję nowych wyzwań oraz szansy na doprecyzowanie ścieżki kariery. Jestem zaangażowany w ciągłe doskonalenie się i rozwój zawodowy, zawsze gotowy na naukę nowych umiejętności i dostosowanie się do zmieniających się potrzeb rynku</p>
-      <p>Zainteresowania:</p>
-      <ul>
-        <li>Komponowanie muzyki</li>
-        <li>Siłownia</li>
-        <li>Rolki</li>
-        <li>Motocykle</li>
-        <li>Tatuaże</li>
-        </ul>
-    </section>
-  
-    <section id="doswiadczenie" class="box">
-      <h2>Doświadczenie</h2>
-      <ul>
-        <li>
-        <strong>Specjalista ds. obsługi klienta – Grupa Cichy-Zasada</strong><br>
-        <span>11.2024 - obecnie</span>
-        </li>
-        <li>
-        <strong>Pracownik ds. obsługi klienta - DPD Polska</strong><br>
-        <span>01.2024 - 10.2024</span>
-        </li>
-        <li>
-        <strong>Kierowca kat. CE - PKSW</strong><br>
-        <span>05.2023 - 08.2023</span>
-        </li>
-        <li>
-        <strong>Kierowca kat. B - Integer Group Services</strong><br>
-        <span>06.2021 - 08.2022</span>
-        </li>
-        <li>
-        <strong>Specjalista ds. obsługi sklepu internetowego i logistyki - Dynamic</strong><br>
-        <span>02.2021 - 05.2021</span>
-        </li>
-        <li>
-        <strong>Pracownik sektora logistyki - Castorama Polska</strong><br>
-        <span>10.2019 - 07.2020</span>
-        </li>
-        <li>
-        <strong>Barista - Starbucks</strong><br>
-        <span>08.2018 – 05.2019</span>
-        </li>
-      </ul>
 
-      <h2>Wykształcenie</h2>
-      <ul>
-        <li>
-        <strong>Uniwersytet WSB Merito</strong><br>
-        <span>Kier. Marketing i sprzedaż | Specj. E-marketing | 2023 - obecnie</li></span>
-        </li>
-        <li>
-        <strong> Zespół Szkół Poligraficznych im. Marszałka Józefa Piłsudskiego</strong><br>
-        <span>Technik organizacji reklamy | 2014 - 2018</span>
-        </li>
-      </ul>
-    </section>
-  
-    <section id="umiejetnosci" class="box">
-      <h2>Umiejętności</h2>
-      <ul>
-        <li>Podstawy HTML, CSS, struktury stron</li>
-        <li>Podstawy SEO (kurs Udemy): audyt, analiza słów, optymalizacja contentu</li>
-        <li>Obsługa CMS (Shoper, Magento)</li>
-        <li>Obsługa CRM</li>
-        <li>Obsługa ERP (Symfonia)</li>
-        <li>Znajomość pakietu MS Office (kurs Udemy)</li>
-        <li>Podstawy digital marketingu i e-commerce (kurs Google Digital Marketing & E-commerce)</li>
-        <li>Podstawy analizy danych (kurs Google Data Analytics)</li>
-        <li>Podstawy Magento 2 (kurs Udemy)</li>
-        <li>Znajomość pakietu Adobe</li>
-        <li>Kwalifikacja A26 - Sprzedaż produktów i usług reklamowych</li>
-        <li>Kwalifikacja A27 - Organizacja i prowadzenie kampanii reklamowej</li><br>
 
-        <li>Komunikacja, analiza danych, rozwiązywanie problemów</li>
-        <li>Praca w zespole, zarządzanie czasem, szybkie przyswajanie wiedzy, ciekawość</li><br>
-
-        <li>Prawo jazdy (kat. B, BE, C, CE)</li>
-        <li>Kod 95 (kierowca zawodowy)</li>
-        <li>Uprawnienia ADR i kurs na cysterny</li>
-        <li>Uprawnienia na nalewaki - NO TDT (kl. 2, 3, 8, 9)</li>
-        <li>Uprawnienie II WJO (wózek widłowy)</li>
-      </ul>
-    </section>
-  
-    <section id="projekty" class="box">
-      <h2>Moje projekty</h2>
-      <p>📝 Ta strona, czyli moje portfolio stworzone od podstaw w HTML i CSS.</p>
-    </section>
-  
-    <section id="kontakt" class="box">
-      <h2>Kontakt</h2>
-      <form>
-    <label for="name">Twoje imię:</label>
-    <input type="text" id="name" name="name" placeholder="np. Sylwester" required><br><br>
-
-    <label for="email">Twój adres mailowy:</label>
-    <input type="email" id="email" name="email" placeholder="np. a@a.pl" required><br><br>
-
-    <label for="message">Twoja wiadomość:</label>
-    <textarea id="message" name="message" rows="4" cols="40" placeholder="np. chcemy Cię zatrudnić" required></textarea><br><br>
-
-    <button type="submit">Wyślij</button>
-    </form></section>
-  
-  </main>  
-
-<!-- Stopka -->
-<footer id="Dane kontaktowe">
-    <p><strong>© 2025 Łukasz Grzywanowski</strong></p>
-    <p><span>Dane kontaktowe: lgrzywanowski@gmail.com | XXX-XXX-XXX</span></p>
-    <p>
-    <a href="https://github.com/luuski" target="_blank" aria-label="Profil Github Łukasz Grzywanowski"><i class="fab fa-github"></i></a>
-    <a href="https://linkedin.com/in/luski" target="_blank" aria-label="Profil LinkeIn Łukasz Grzywanowski"><i class="fab fa-linkedin"></i></a>
-    <a href="https://instagram.com/7nnski" target="_blank" aria-label="Profil Instagram Łukasz Grzywanowski"><i class="fab fa-instagram"></i></a>
-    </p>
-</footer>
-
+  <footer>
+    &copy; 2025 Łukasz Grzywanowski
+  </footer>
 </body>
 </html>
