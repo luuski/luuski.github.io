@@ -273,6 +273,21 @@
       line-height: 1.6;
     }
 
+    .loading-tooltip {
+      position: relative;
+      animation: pulse 1.2s infinite ease-in-out;
+      cursor: help;
+    }
+
+    @keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+    }
+
     footer {
       text-align: center;
       font-size: 0.85rem;
@@ -469,6 +484,8 @@
     <a class="tag-link" href="https://coursera.org/share/3aff1ef691db289ae66e4137bad35d69" target="_blank">Google Digital Marketing & E-commerce – Coursera</a>
     <a class="tag-link" href="#" target="_blank">SEO for WordPress – Udemy</a>
     <a class="tag-link" href="#" target="_blank">Magento 2 – Udemy</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-RYI0QRLG" target="_blank">SEO with AI - Sololearn</a>
+    <span class="tag loading-tooltip" title="W trakcie zdobywania kolejnych certyfikatów...">...</span>
   </div>
 </section>
 
