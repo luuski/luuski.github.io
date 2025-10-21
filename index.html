@@ -1,748 +1,580 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Łukasz — SEO | Design | Development</title>
-<style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  html,body {
-    margin:0; padding:0; 
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    font-family:Inter, sans-serif; color:white;
-  }
-  .hero {
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(139, 92, 246, 0.25) 0%, rgba(99, 102, 241, 0.15) 35%, transparent 65%),
-      radial-gradient(ellipse at 80% 70%, rgba(99, 102, 241, 0.25) 0%, rgba(59, 130, 246, 0.15) 35%, transparent 65%),
-      radial-gradient(ellipse at 50% 50%, rgba(79, 70, 229, 0.2) 0%, rgba(67, 56, 202, 0.12) 40%, transparent 75%),
-      radial-gradient(ellipse at 30% 80%, rgba(124, 58, 237, 0.2) 0%, transparent 60%),
-      radial-gradient(ellipse at 70% 20%, rgba(88, 28, 135, 0.2) 0%, transparent 60%),
-      linear-gradient(to bottom, #0d1117 0%, #0a0e1a 50%, #050810 100%);
-    animation: colorShift 50s ease infinite;
-    z-index: 0;
-  }
-  @keyframes colorShift {
-    0% { filter: hue-rotate(0deg) brightness(1); }
-    25% { filter: hue-rotate(10deg) brightness(1.05); }
-    50% { filter: hue-rotate(20deg) brightness(1.1); }
-    75% { filter: hue-rotate(10deg) brightness(1.05); }
-    100% { filter: hue-rotate(0deg) brightness(1); }
-  }
-  
-  .fade-overlay {
-    position: fixed;
-    inset: 0;
-    background: #0d1117;
-    z-index: 3;
-    animation: fadeOut 2s ease-out forwards;
-    pointer-events: none;
-  }
-  
-  @keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  
-  canvas {
-    position:fixed; inset:0;
-    width:100%; height:100%;
-    display:block;
-    z-index:1;
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeInCanvas 2s ease-out 0.5s forwards;
-    transition: opacity 1.5s ease-out, filter 1.5s ease-out;
-  }
-  
-  canvas.frozen {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Łukasz Grzywanowski – CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6c6c6c;
+      --accent: #007acc;
+      --tag-bg: #f0f0f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 24px;
+      line-height: 1.7;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .header-text {
+      flex: 1 1 60%;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.2em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .contact {
+      margin-top: 10px;
+      display: flex;
+      gap: 12px;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact a i {
+      font-size: 1.3rem;
+      color: #3d3d3d;
+      transition: filter 0.2s ease;
+    }
+
+    .contact a:hover i {
+      filter: brightness(0.4);
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: #333;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      margin-right: 6px;
+      border-radius: 4px;
+    }
+
+    .experience-entry {
+      margin-bottom: 32px;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+
+    .experience-header a {
+      font-weight: 600;
+      text-decoration: none;
+      color: #000;
+      transition: color 0.2s ease;
+    }
+
+    .experience-header a:hover {
+      color: #666;
+    }
+
+    .experience-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 4px 0;
+      flex-wrap: wrap;
+    }
+
+    .experience-position {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .experience-description {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 16px;
+      background-color: #fff;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-tag {
+      background: var(--tag-bg);
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #333;
+    }
+
+    .location a {
+      text-decoration: none;
+      color: #1a1a1a;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .location a:hover {
+      color: #666;
+    }
+
+    .tag-link {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: #1a1a1a;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      margin: 4px 6px 4px 0;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .tag-link:hover {
+      background-color: #ddd;
+      color: #000;
+    }
+
+    .project-card h3 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .project-card h3 a:hover {
+      color: #007acc;
+    }
+
+    .project-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .project-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-header i {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .experience-description li {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .loading-tooltip {
+      position: relative;
+      animation: pulse 1.2s infinite ease-in-out;
+      cursor: help;
+    }
+
+    @keyframes pulse {
+  0%, 100% {
     opacity: 0.3;
-    filter: blur(4px);
   }
-  
-  @keyframes fadeInCanvas {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  .center {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    width: 100%;
-    opacity: 0;
-    animation: fadeInText 1.5s ease-out 1s forwards;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .center > div {
-    width: 100%;
-    max-width: 90vw;
-    padding: 0 2rem;
-  }
-  
-  .center h1,
-  .center p {
-    visibility: hidden;
-  }
-  
-  @keyframes fadeInText {
-    0% { 
-      opacity: 0;
-    }
-    100% { 
-      opacity: 1;
-    }
-  }
-  
-  h1 {
-    font-size: clamp(2rem, 8vw, 4rem);
-    font-weight:700;
-    letter-spacing:-0.02em;
-    margin:0;
-    line-height: 1.2;
-  }
-  
-  h1.coding {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    font-weight: 400;
-    font-family: 'Courier New', monospace;
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  p {
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    letter-spacing:0.08em;
-    margin-top: clamp(0.5rem, 2vw, 1rem);
-    line-height: 1.5;
-  }
-  
-  p.coding {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    font-family: 'Courier New', monospace;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: clamp(0.3rem, 1vw, 0.5rem);
-  }
-  
-  .nav-menu {
-    margin-top: clamp(2rem, 5vw, 3rem);
-    display: flex;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
-    justify-content: center;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeInMenu 1s ease-out 6s forwards;
-  }
-  
-  @keyframes fadeInMenu {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .nav-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .nav-menu a:hover {
-    border-bottom-color: rgba(139, 92, 246, 0.8);
-    color: rgba(139, 92, 246, 1);
-  }
-  
-  section {
-    min-height: 100vh;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 0;
-    width: 100%;
-  }
-  
-  .photo-placeholder {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 80px;
-    height: 80px;
-  }
-  
-  .photo-placeholder svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
-  }
-  
-  #about {
-    background: transparent;
-  }
-  
-  #portfolio {
-    background: transparent;
-  }
-  
-  #contact {
-  background: linear-gradient(to bottom, transparent 0%, rgba(1, 1, 3, 0.8) 40%, #010103 100%);
-  position: relative;
-  margin-top: 4rem;
-  padding-bottom: 2rem;
-}
-  
-  .section-content {
-    max-width: 800px;
-    width: calc(100% - 4rem);
-    padding: 3rem;
-    padding-right: 110px;
-    position: relative;
-    margin: 0 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .section-content {
-      padding-right: 3rem;
-    }
-    .photo-placeholder {
-      display: none;
-    }
-  }
-  
-  .section-content p {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    color: rgba(255, 255, 255, 0.9);
-  }
-  
-  .cv-link {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(139, 92, 246, 0.8);
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .cv-link:hover {
-    color: rgba(139, 92, 246, 1);
-  }
-  
-  .rocket-icon {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.3s ease;
-  }
-  
-  .cv-link:hover .rocket-icon {
-    transform: translateY(-3px);
-  }
-  
-  .portfolio-content {
-    max-width: 1200px;
-    width: calc(100% - 4rem);
-    margin: 0 2rem;
-  }
-  
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    transition: filter 0.3s ease;
-  }
-  
-  .portfolio-grid.dimmed {
-    /* Removed - applying filter to individual items instead */
-  }
-  
-  .portfolio-item {
-    aspect-ratio: 1;
-    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%);
-    border-radius: 0.5rem;
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .portfolio-grid.dimmed .portfolio-item {
-    filter: grayscale(1) brightness(0.4);
-  }
-  
-  .portfolio-item:hover {
-    transform: translateY(-5px) scale(1.05);
-    z-index: 10;
-    filter: grayscale(0) brightness(1) !important;
-    border-color: rgba(139, 92, 246, 0.6);
-    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
-  }
-  
-  .contact-content {
-    max-width: 800px;
-    width: calc(100% - 4rem);
-    padding: 4rem 2rem;
-    margin: 0 2rem;
-  }
-  
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-  }
-  
-  .contact-item {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    font-family: 'Courier New', monospace;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    opacity: 0;
-  }
-  
-  .contact-item.visible {
+  50% {
     opacity: 1;
   }
-  
-  .contact-item.final {
-    font-family: Inter, sans-serif;
-  }
-  
-  .contact-item:hover,
-  .contact-item.final:hover {
-    color: rgba(139, 92, 246, 1);
-  }
-  
-  .social-links {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-  }
-  
-  .social-icon {
-    width: 40px;
-    height: 40px;
-    color: rgba(255, 255, 255, 0.8);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.3s ease, color 0.3s ease;
-    display: inline-block;
-  }
-  
-  .social-icon.visible {
-    opacity: 1;
-  }
-  
-  .social-icon:hover {
-    transform: scale(1.15);
-    color: rgba(139, 92, 246, 1);
-  }
-  
-  .social-icon svg {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-    stroke: none;
-  }
-  
-  .footer {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 3rem 2rem;
-  background: #010103;
-}
-  
-  .footer p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.05em;
-  }
-  
-  @media (max-width: 768px) {
-    .center {
-      padding: 0 1rem;
     }
-    .nav-menu {
-      gap: 1rem;
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 60px;
     }
-    .section-content {
-      padding: 2rem 1.5rem;
-    }
-    .portfolio-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .portfolio-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-  }
-  
-</style>
+
+  </style>
 </head>
 <body>
-<div class="hero"></div>
-<canvas id="starfield"></canvas>
+  <header>
+    <div class="header-text">
+      <h1>Łukasz Grzywanowski</h1>
+      <p class="subtitle">SEO / Marketing / Front-End Enthusiast</p>
 
-<section class="center">
-  <div>
-    <h1 id="nameTitle">Łukasz Grzywanowski</h1>
-    <p id="subtitle">SEO | Design | Development</p>
-    <nav class="nav-menu">
-      <a href="#about">About</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <div class="location">
+  <a href="https://www.google.com/maps/place/Warszawa" target="_blank" aria-label="Lokalizacja - Warszawa">
+    <i class="fas fa-globe"></i> Warszawa, Poland, CET
+  </a>
+</div>
+
+
+      <div class="contact">
+        <a href="mailto:lgrzywanowski@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+48576147767" aria-label="Telefon"><i class="fas fa-phone-alt"></i></a>
+        <a href="https://github.com/luuski" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://instagram.com/7nnski" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <img src="https://i.postimg.cc/rm7LSwCQ/avatar-circle.png" alt="Avatar Łukasz Grzywanowski" class="avatar" />
+  </header>
+
+  <section>
+    <h2>O mnie</h2>
+    <p>Student marketingu i sprzedaży z pasją do SEO, e-commerce i tworzenia stron. Uczę się front-endu i narzędzi SEO, realizując własne projekty, w tym portfolio w HTML i CSS. Szukam miejsca, gdzie będę mógł rozwijać się pod okiem praktyków.</p>
+  </section>
+
+  <section>
+  <h2>Doświadczenie</h2>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://netin.pro/" target="_blank">Netin <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>06.2025 – obecnie</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Specjalista ds. SEO</div>
+      <div class="tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">WordPress</span>
+        <span class="tag">GSC</span>
+        <span class="tag">GA4</span>
+        <span class="tag">Ahrefs</span>
+        <span class="tag">Screamingfrog</span>
+        <span class="tag">Senuto</span>
+        <span class="tag">AI</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Optymalizacja techniczna kodu źródłowego stron www klientów</li>
+      <li>Nanoszenie zmian na stronach www klientów</li>
+      <li>Przygotowanie analiz i raportów dla klientów</li>
+      <li>Prace administracyjne i publikacyjne na stronach www klientów</li>
+      <li>Analizy: fraz, ruchu, konkurencji, profili linkowych, wzrostów i spadków, etc.</li>
+    </ul>
+  </div>
+    
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://cichy-zasada.pl" target="_blank" rel="nofollow">Grupa Cichy-Zasada <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>11.2024 – 05.2025</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Specjalista ds. obsługi klienta</div>
+      <div class="tags">
+        <span class="tag">CRM</span>
+        <span class="tag">Excel</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Codzienna obsługa klienta B2C i B2B</li>
+      <li>Uzupełnianie i zarządzanie danymi w CRM</li>
+      <li>Praca z dokumentacją i wsparcie sprzedaży</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.dpd.com/pl/pl/" target="_blank" rel="nofollow">DPD Polska <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>01.2024 – 10.2024</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Pracownik ds. obsługi klienta</div>
+      <div class="tags">
+        <span class="tag">MS Office</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+      <li>Obsługa telefoniczna i mailowa klientów indywidualnych</li>
+      <li>Rozwiązywanie zgłoszeń i reklamacji</li>
+      <li>Aktualizacja danych w systemie operacyjnym</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.gowork.pl/pksw-sp.-z-o.o.,21569018/dane-kontaktowe-firmy" target="_blank" rel="nofollow">PKSW <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>05.2023 – 08.2023</em></div>
+    </div>
+    <div class="experience-position">Kierowca kat. CE</div>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://inpost.pl/" target="_blank" rel="nofollow">Integer Group Services <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>06.2021 – 08.2022</em></div>
+    </div>
+    <div class="experience-position">Kierowca kat. B</div>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.dynamic-pigna.pl/" target="_blank" rel="nofollow">Dynamic <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>02.2021 – 05.2021</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Specjalista ds. obsługi sklepu internetowego i logistyki</div>
+      <div class="tags">
+        <span class="tag">Shoper</span>
+        <span class="tag">Allegro</span>
+        <span class="tag">Excel</span>
+        <span class="tag">HTML</span>
+        <span class="tag">ERP</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+    <li>Redagowanie i optymalizacja opisów produktów pod SEO</li>
+    <li>Wdrażanie nowych ofert oraz aktualizacja treści i zdjęć produktowych</li>
+    <li>Planowanie i nadzór nad promocjami online</li>
+    <li>Obsługa wysyłek i bieżący kontakt z firmami kurierskimi</li>
+    </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.castorama.pl/" target="_blank" rel="nofollow">Castorama Polska <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>10.2019 – 07.2020</em></div>
+    </div>
+    <div class="experience-meta">
+      <div class="experience-position">Pracownik ds. obsługi sklepu internetowego i logistyki</div>
+      <div class="tags">
+        <span class="tag">CRM</span>
+        <span class="tag">CMS</span>
+        <span class="tag">ERP</span>
+        <span class="tag">CMR</span>
+      </div>
+    </div>
+    <ul class="experience-description">
+    <li>Obsługa zamówień w systemie Magento – rejestrowanie, aktualizacja statusów, kontrola danych</li>
+    <li>Współpraca z zespołem i działami w celu płynnej realizacji zamówień i operacji logistycznych</li>
+    <li>Koordynacja procesów magazynowych – zarządzanie stanami i optymalizacja przestrzeni</li>
+  </ul>
+  </div>
+
+  <div class="experience-entry">
+    <div class="experience-header">
+      <a href="https://www.starbucks.pl/" target="_blank" rel="nofollow">Starbucks <i class="fas fa-link" style="margin-left: 4px;"></i>
+      </a>
+      <div><em>08.2018 – 05.2019</em></div>
+    </div>
+    <div class="experience-position">Barista</div>
   </div>
 </section>
 
-<section id="about">
-  <div class="section-content">
-    <p>Hi! I'm Łukasz, a digital marketer with a focus on SEO, front-end, and user interface design. I enjoy finding the balance between data and creativity — optimizing what's visible in the code as much as what's felt in the experience. My work revolves around helping brands grow through thoughtful strategy, performance, and design clarity.</p>
-    <a href="#cv" class="cv-link">
-      <span>More in CV</span>
-      <svg class="rocket-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-      </svg>
-    </a>
-    <div class="photo-placeholder">
-      <svg viewBox="-120 -120 240 240" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 89.92697212600311,0 C 90.75614484533604,6.262692002545246 66.68555143716084,29.74348101347099 61.45512347313982,35.481132080298956 C 56.224695509118796,41.21878314712692 40.708072392572184,56.69299181791293 34.8698356626239,60.396327019241745 C 29.031598932675617,64.09966222057055 7.270852396827184,73.34542425177742 4.559580952390521e-15,74.4636078837601 C -7.270852396827175,75.5817915157428 -36.284835054894906,76.1342227288101 -41.66545272503062,72.16668104011221 C -47.04607039516633,68.19913935141432 -54.01291674470183,39.55584585943502 -56.638080738270666,32.700011160624356 C -59.2632447318395,25.844176461813696 -68.24781582320604,6.819763823289399 -69.29875792049202,8.486650207221784e-15 C -70.349700017778,-6.819763823289382 -71.47031681917814,-34.213514944092246 -67.70062913075465,-39.086976452948186 C -63.93094144233117,-43.960437961804125 -36.049394651877044,-46.841136041748605 -29.617834884455352,-51.299594830062496 C -23.18627511703366,-55.75805361837639 -5.620447340490217,-86.03014425581189 -1.5801272591647636e-14,-86.01812159309442 C 5.620447340490185,-86.00609893037695 24.535704689036667,-56.45277758209519 29.54476869965202,-51.17304048566806 C 34.55383271026738,-45.893303389240934 46.99068025992142,-35.303380476842094 52.726989585424775,-30.441941630703624 C 58.46329891092813,-25.58050278456516 89.09779940667018,-6.262692002545246 89.92697212600311,0 Z" fill="#6366f1" opacity="0.6" />
-      </svg>
+  <section>
+    <h2>Wykształcenie</h2>
+  
+    <div class="experience-entry">
+      <div class="experience-header">
+        <strong>Uniwersytet WSB Merito</strong>
+        <div><em>2023 – 2026</em></div>
+      </div>
+      <div class="experience-position">Marketing i sprzedaż – E-marketing</div>
     </div>
+  
+    <div class="experience-entry">
+    <div class="experience-header">
+      <strong>Zespół Szkół Poligraficznych im. Marszałka Józefa Piłsudskiego</strong>
+      <div><em>2014 – 2018</em></div>
+    </div>
+    <div class="experience-position">Technik organizacji reklamy</div>
+    <ul class="experience-description">
+      <li>Kwalifikacja A26 – Sprzedaż produktów i usług reklamowych</li>
+      <li>Kwalifikacja A27 – Organizacja i prowadzenie kampanii reklamowej</li>
+    </ul>
+  </div>
+  </section>  
+
+  <section>
+    <h2>Umiejętności</h2>
+    <div class="tags">
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">SEO</span>
+      <span class="tag">Google Analytics</span>
+      <span class="tag">GSC</span>
+      <span class="tag">Ahrefs</span>
+      <span class="tag">Shoper</span>
+      <span class="tag">Magento</span>
+      <span class="tag">Excel</span>
+      <span class="tag">Adobe CC</span>
+    </div>
+  </section>
+
+  <section>
+  <h2>Certyfikaty i kursy</h2>
+  <div class="tags">
+    <a class="tag-link" href="#" target="_blank">SEO and Content Marketing – Santander Open Academy</a>
+    <a class="tag-link" href="https://skillshop.credential.net/02d55441-6c07-4329-9809-462cbb3309ab#acc.bvru2M7g" target="_blank">Google Analytics – Skillshop</a>
+    <a class="tag-link" href="#" target="_blank">MS Office – Udemy</a>
+    <a class="tag-link" href="https://coursera.org/share/3aff1ef691db289ae66e4137bad35d69" target="_blank">Google Digital Marketing & E-commerce – Coursera</a>
+    <a class="tag-link" href="#" target="_blank">SEO for WordPress – Udemy</a>
+    <a class="tag-link" href="#" target="_blank">Magento 2 – Udemy</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-RYI0QRLG" target="_blank">SEO with AI – Sololearn</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-KCPGUAHT" target="_blank">Introduction to HTML – Sololearn</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-IMPCX465" target="_blank">Web Development – Sololearn</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-2CTI99VF" target="_blank">Introduction to CSS – Sololearn</a>
+    <a class="tag-link" href="https://www.sololearn.com/certificates/CC-KQPXW5KN" target="_blank">Introduction to JavaScript – Sololearn</a>
+    <span class="tag loading-tooltip" title="W trakcie zdobywania kolejnych certyfikatów...">...</span>
   </div>
 </section>
 
-<section id="portfolio">
-  <div class="portfolio-content">
-    <div class="portfolio-grid">
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
+  <section>
+  <h2>Projekty</h2>
+  <div class="projects-grid">
+
+<a href="https://www.angal.pl/" target="_blank" class="project-link">
+  <div class="project-card">
+    <div class="project-header">
+      <h3>ANGAL: strona internetowa</h3>
+      <i class="fas fa-arrow-up-right-from-square"></i>
+    </div>
+    <p>Strona stworzona od podstaw w HTML i CSS z naciskiem na SEO i responsywność.</p>
+    <div class="project-tags">
+      <span class="project-tag">HTML</span>
+      <span class="project-tag">CSS</span>
+      <span class="project-tag">SEO</span>
+      <span class="project-tag">Responsive</span>
     </div>
   </div>
-</section>
+  </a>
 
-<section id="contact">
-  <div class="contact-content">
-    <div class="contact-info">
-      <a href="mailto:lukasz@example.com" class="contact-item" id="emailLink"></a>
-      <a href="tel:+48123456789" class="contact-item" id="telLink"></a>
+    <div class="project-card">
+      <h3>CV: GitHub</h3>
+      <p>Ta strona, czyli moje portfolio tworzenia w HTML i CSS.</p>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+      </div>
     </div>
-    <div class="social-links">
-      <a href="https://behance.net/username" target="_blank" class="social-icon" id="behance">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 4.5h5c2.5 0 4.5 1.3 4.5 3.5 0 1.4-.7 2.5-2 3 1.5.4 2.5 1.7 2.5 3.3 0 2.5-2 4.2-5 4.2h-5V4.5zm2 6h2.5c1.2 0 2-.7 2-1.7s-.8-1.8-2-1.8H8.5V10.5zm0 6.5h3c1.3 0 2.2-.8 2.2-2s-.9-2-2.2-2h-3V17zm6.5-11h5v1.5h-5V6z"/></svg>
-      </a>
-      <a href="https://instagram.com/username" target="_blank" class="social-icon" id="instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2C5.6 4 4 5.6 4 7.6v8.8c0 2 1.6 3.6 3.6 3.6h8.8c2 0 3.6-1.6 3.6-3.6V7.6C20 5.6 18.4 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
-      </a>
-      <a href="https://linkedin.com/in/username" target="_blank" class="social-icon" id="linkedin">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-      </a>
-      <a href="https://github.com/username" target="_blank" class="social-icon" id="github">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 002 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
-      </a>
-      <a href="https://soundcloud.com/username" target="_blank" class="social-icon" id="soundcloud">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5c-.3 0-.58.05-.85.15-.2-2.23-2.1-4-4.38-4-1.09 0-2.09.41-2.85 1.08.21.47.32.99.32 1.53v6.24M10.5 9v8h-.58V9.14c.19-.05.38-.09.58-.14m-1.16.32V17h-.59V9.5c.19-.07.39-.13.59-.18m-1.17.36V17H7.6V9.85c.18-.08.38-.15.57-.21m-1.17.38V17H6.44V10.21c.18-.08.37-.15.56-.21m-1.16.4V17H5.28v-6c.18-.1.37-.18.56-.26M4.12 11v6H3.56v-5.5c.18-.1.37-.2.56-.28V11M3 11.5v5h-.56v-4.54c.18-.11.37-.22.56-.32V12z"/></svg>
-      </a>
-      <a href="https://open.spotify.com/user/username" target="_blank" class="social-icon" id="spotify">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25m-.1 2.8c-.25.35-.7.5-1.05.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.2 1m-1.2 2.75c-.2.3-.55.4-.85.2-2.35-1.45-5.3-1.75-8.8-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.8-.85 7.1-.5 9.7 1.1.35.15.4.6.25.85M12 2A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2z"/></svg>
-      </a>
+
+    <div class="project-card">
+      <h3>Kolejne projekty: w przygotowaniu</h3>
+      <p>Działam na bieżąco.</p>
+      <div class="project-tags">
+        <span class="project-tag"></span>
+        <span class="project-tag"></span>
+        <span class="project-tag"></span>
+      </div>
     </div>
-  </div>
-</section>
 
-<footer class="footer">
-  <p>© 2025 Łukasz Grzywanowski</p>
-</footer>
+    </div>
+    </section>
 
-<div class="fade-overlay"></div>
-<script>
-const canvas = document.getElementById("starfield");
-const ctx = canvas.getContext("2d", { alpha: true });
-let w, h, cx, cy;
-let animationRunning = true;
 
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  cx = w / 2;
-  cy = h / 2;
-}
-
-window.addEventListener('resize', resize);
-window.addEventListener('orientationchange', resize);
-resize();
-
-const STAR_COUNT = 1000;
-const stars = [];
-for (let i = 0; i < STAR_COUNT; i++) {
-  stars.push({
-    x: (Math.random() - 0.5) * w,
-    y: (Math.random() - 0.5) * h,
-    z: Math.random() * w
-  });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "rgba(0,0,0,0.15)";
-  ctx.fillRect(0, 0, w, h);
-  
-  const speed = animationRunning ? 2 : 0.2;
-  
-  for (const s of stars) {
-    s.z -= speed;
-    if (s.z <= 0) {
-      s.x = (Math.random() - 0.5) * w;
-      s.y = (Math.random() - 0.5) * h;
-      s.z = w;
-    }
-    const k = 300 / s.z;
-    const x = cx + s.x * k;
-    const y = cy + s.y * k;
-    if (x < 0 || x >= w || y < 0 || y >= h) continue;
-    
-    const depth = 1 - s.z / w;
-    const size = depth * 3;
-    const alpha = depth
-    * 0.9;
-    
-    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-    ctx.fillRect(x, y, size, size);
-  }
-  requestAnimationFrame(draw);
-}
-draw();
-
-function freezeStarfield() {
-  animationRunning = false;
-  canvas.classList.add('frozen');
-}
-
-function unfreezeStarfield() {
-  animationRunning = true;
-  canvas.classList.remove('frozen');
-}
-
-// Typing effect with HTML tags
-const nameTitle = document.getElementById('nameTitle');
-const subtitle = document.getElementById('subtitle');
-const menuLinks = document.querySelectorAll('.nav-menu a');
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-
-function typeWriter(element, text, speed, callback) {
-  let index = 0;
-  const interval = setInterval(() => {
-    element.textContent += text[index];
-    index++;
-    if (index >= text.length) {
-      clearInterval(interval);
-      if (callback) callback();
-    }
-  }, speed);
-}
-
-function animateWithHTML(element, openTag, content, closeTag, delay) {
-  setTimeout(() => {
-    element.style.visibility = 'visible';
-    element.textContent = '';
-    element.classList.add('coding');
-    element.style.opacity = '1';
-    element.style.transform = 'scale(0.8)';
-    
-    typeWriter(element, openTag, 50, () => {
-      typeWriter(element, content, 50, () => {
-        typeWriter(element, closeTag, 50, () => {
-          setTimeout(() => {
-            element.classList.remove('coding');
-            element.textContent = content;
-            element.style.transform = 'scale(1)';
-            element.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-          }, 200);
-        });
-      });
-    });
-  }, delay);
-}
-
-setTimeout(() => {
-  animateWithHTML(nameTitle, '<h1>', 'Łukasz Grzywanowski', '</h1>', 0);
-  animateWithHTML(subtitle, '<p>', 'SEO | Design | Development', '</p>', 2000);
-}, 1500);
-
-menuLinks.forEach((link) => {
-  link.addEventListener('mouseenter', () => {
-    const originalText = link.textContent;
-    let iterations = 0;
-    const maxIterations = originalText.length;
-    
-    const interval = setInterval(() => {
-      link.textContent = originalText
-        .split('')
-        .map((char, idx) => {
-          if (idx < iterations) {
-            return originalText[idx];
-          }
-          return chars[Math.floor(Math.random() * chars.length)];
-        })
-        .join('');
-      
-      iterations += 1/2;
-      
-      if (iterations >= maxIterations) {
-        clearInterval(interval);
-        link.textContent = originalText;
-      }
-    }, 30);
-  });
-});
-
-// Intersection Observer
-const heroSection = document.querySelector('.center');
-const contactSection = document.getElementById('contact');
-let contactDecoded = false;
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      unfreezeStarfield();
-    } else {
-      freezeStarfield();
-    }
-  });
-}, {
-  threshold: 0.1
-});
-
-observer.observe(heroSection);
-
-const contactObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !contactDecoded) {
-      contactDecoded = true;
-      decodeContactSection();
-    }
-  });
-}, {
-  threshold: 0.3
-});
-
-contactObserver.observe(contactSection);
-
-function decodeContactSection() {
-  const emailLink = document.getElementById('emailLink');
-  const telLink = document.getElementById('telLink');
-  
-  emailLink.classList.add('visible');
-  telLink.classList.add('visible');
-  
-  setTimeout(() => {
-    typeCodeTag(emailLink, '<a href="mailto:">', 'lukasz@example.com', '</a>', () => {
-      emailLink.textContent = 'lukasz@example.com';
-      emailLink.style.color = 'rgba(255, 255, 255, 0.9)';
-    });
-  }, 300);
-  
-  setTimeout(() => {
-    typeCodeTag(telLink, '<a href="tel:">', '+48 123 456 789', '</a>', () => {
-      telLink.textContent = '+48 123 456 789';
-      telLink.style.color = 'rgba(255, 255, 255, 0.9)';
-      setTimeout(showSocialIcons, 500);
-    });
-  }, 1500);
-}
-
-function typeCodeTag(element, openTag, content, closeTag, callback) {
-  let index = 0;
-  const fullTag = openTag + content + closeTag;
-  
-  const typeInterval = setInterval(() => {
-    element.textContent = fullTag.substring(0, index);
-    index++;
-    
-    if (index > fullTag.length) {
-      clearInterval(typeInterval);
-      setTimeout(() => {
-        callback();
-        element.classList.add('final');
-      }, 500);
-    }
-  }, 30);
-}
-
-// Portfolio hover effect
-const portfolioGrid = document.querySelector('.portfolio-grid');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-portfolioItems.forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    portfolioGrid.classList.add('dimmed');
-  });
-  
-  item.addEventListener('mouseleave', () => {
-    portfolioGrid.classList.remove('dimmed');
-  });
-});
-
-function showSocialIcons() {
-  const socialIcons = document.querySelectorAll('.social-icon');
-  socialIcons.forEach((icon, index) => {
-    setTimeout(() => {
-      icon.classList.add('visible');
-    }, index * 100);
-  });
-}
-</script>
-
+  <footer>
+    &copy; 2025 Łukasz Grzywanowski
+  </footer>
 </body>
 </html>
